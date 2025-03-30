@@ -114,8 +114,8 @@ const ContactForm = () => {
   <div className="w-full md:w-1/3">
   {[
     { name: "Jayant Pandey", phone: "+91 9953755248", email: "Contact@qurible.com" },
-    { name: "Ashish Spehia", phone: "+91 7009380316", email: "Contact@qurible.com" },
-    { name: "Saurabh Sahu", phone: "+91 9899164990", email: "Contact@qurible.com" },
+    // { name: "Ashish Spehia", phone: "+91 7009380316", email: "Contact@qurible.com" },
+    // { name: "Saurabh Sahu", phone: "+91 9899164990", email: "Contact@qurible.com" },
   ].map((person, index) => (
     <div
       key={index}

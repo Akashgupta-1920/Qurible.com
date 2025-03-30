@@ -118,7 +118,7 @@ const Header = () => {
                 <Link to="/contact" className="text-gray-700 hover:text-[#004BBE]">
                   Contact Us
                 </Link>
-                <button 
+                {/* <button 
                   className="mt-4 text-[#004BBE] px-5 py-2 rounded-full border border-[#004BBE] hover:bg-[#004BBE] hover:text-white"
                   onClick={() => {
                     setDashboard(!dashboard);
@@ -128,7 +128,7 @@ const Header = () => {
                   <Link to={!isauthenticated ? '/login' : '#'}>
                     {isauthenticated ? `${user?.firstName?.[0]}` : 'Sign up / Sign in'}
                   </Link>
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
