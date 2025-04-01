@@ -9,8 +9,7 @@ import AboutSection from "./components/Pages/AboutSection";
 function App() {
   return (
     <Router>
-      
-    
+       
       <Routes>
        
         <Route path="/home" element={<Home />} />
@@ -24,7 +23,6 @@ function App() {
         
       </Routes>
 
-   
     </Router>
   );
 }

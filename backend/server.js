@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db'); // Import the connection function from db.js
-const userRoutes = require('./routes/userRoutes'); // Import your user routes
+const connectDB = require('./config/db');
+const userRoutes = require('./routes/userRoutes');
+const contactRoutes = require('./routes/ContactRoute'); 
 
 // Load environment variables
 dotenv.config();
@@ -12,22 +13,22 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(express.json()); // To parse JSON data in requests
-app.use(cors()); // Allow cross-origin requests
+app.use(express.json());
+app.use(cors());
 
-// Connect to the MongoDB database
+// Connect to Database
 connectDB();
 
-// Sample route to check the server
+// Routes
 app.get('/', (req, res) => {
   res.send('Server is up and running!');
 });
 
-// Use the user routes for authentication
 app.use('/api/auth', userRoutes);
+app.use('/api/contact', contactRoutes);
 
-// Server setup
+// Server
 const PORT = process.env.PORT || 6001;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
