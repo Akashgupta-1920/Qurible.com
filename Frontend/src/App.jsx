@@ -6,6 +6,7 @@ import Signup from "./components/Pages/Signup";
 import ContactForm from "./components/Pages/ContactForm/ContactForm";
 import Login from "./components/Pages/Login";
 import AboutSection from "./components/Pages/AboutSection";
+import Newletter from "./components/Pages/Newletter";
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
         {/* Redirect unknown routes to Home */}
         <Route path="*" element={<Home />} />
         <Route path="/about" element={<AboutSection />} />
+        <Route path="/news" element={<Newletter />} />
         <Route path="/blogs" element={<Blogs/>} />
         <Route path="/contact" element={<ContactForm/>} />
         <Route path="/login" element={<Login/>} />
