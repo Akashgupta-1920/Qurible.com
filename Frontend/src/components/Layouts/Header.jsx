@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MdAddLocationAlt } from "react-icons/md";
-import Logo from "/src/assets/image/logo.jpeg"; // Imported as `logo`
+// import Logo from "/src/assets/image/logo.jpeg"; // Imported as `logo`
 
 const Header = () => {
   const [user, setUser] = useState(null);
