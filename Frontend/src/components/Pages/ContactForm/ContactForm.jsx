@@ -33,7 +33,7 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
       setSubmitStatus({ success: false, message: 'Please fill in all required fields' });
@@ -42,24 +42,29 @@ const ContactForm = () => {
     }
 
     try {
-      const response = await fetch('https://qurible-com-1.onrender.com/api/contact', {
+      // Google Form submission URL
+      const googleFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSeSBFTPYz22mwXrWZxYnzQEGES1NpZY4sXYllnJ8YQab6yKJg/formResponse';
+
+      // Create form data for Google Forms
+      const googleFormData = new FormData();
+      googleFormData.append('entry.1050445468', formData.name);
+      googleFormData.append('entry.1844340205', formData.email);
+      googleFormData.append('entry.408666205', formData.subject);
+      googleFormData.append('entry.506275367', formData.message);
+
+      // Submit to Google Form
+      await fetch(googleFormUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
+        mode: 'no-cors',
+        body: googleFormData
       });
 
-      const data = await response.json();
-      
-      if (response.ok) {
-        setSubmitStatus({ success: true, message: 'Message sent successfully!' });
-        setFormData({ name: "", email: "", subject: "", message: "" });
-      } else {
-        setSubmitStatus({ success: false, message: data.message || 'Error submitting form' });
-      }
+      // Since Google Forms returns opaque response in no-cors mode, we assume success
+      setSubmitStatus({ success: true, message: 'Message sent successfully!' });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+
     } catch (error) {
-      setSubmitStatus({ success: false, message: 'Network error: ' + error.message });
+      setSubmitStatus({ success: false, message: 'Error submitting form: ' + error.message });
     } finally {
       setIsLoading(false);
     }
@@ -78,7 +83,7 @@ const ContactForm = () => {
             # CONTACT US
           </h2>
           <p className="text-black text-base sm:text-lg md:text-xl text-center max-w-3xl">
-            Whether you have questions, feedback, or need assistance, our team is here to help. 
+            Whether you have questions, feedback, or need assistance, our team is here to help.
             Please reach out to us using the contact information below or fill out the form.
           </p>
         </section>
@@ -88,13 +93,13 @@ const ContactForm = () => {
           className="flex flex-col md:flex-row justify-between m-4 md:m-8 p-4 md:p-8 border border-gray-400"
         >
           {/* Form Section */}
-          <form 
+          <form
             className="w-full md:w-2/3 flex flex-col mb-8 md:mb-0 md:mr-8"
             onSubmit={handleSubmit}
           >
             <span className="text-sm">LEAVE A MESSAGE</span>
             <h2 className="text-2xl md:text-3xl py-3 md:py-5">We love to hear from you</h2>
-            
+
             <input
               type="text"
               name="name"
@@ -104,7 +109,7 @@ const ContactForm = () => {
               onChange={handleChange}
               required
             />
-            
+
             <input
               type="email"
               name="email"
@@ -114,7 +119,7 @@ const ContactForm = () => {
               onChange={handleChange}
               required
             />
-            
+
             <input
               type="text"
               name="subject"
@@ -123,7 +128,7 @@ const ContactForm = () => {
               value={formData.subject}
               onChange={handleChange}
             />
-            
+
             <textarea
               name="message"
               placeholder="Comment"
@@ -133,18 +138,17 @@ const ContactForm = () => {
               onChange={handleChange}
               required
             ></textarea>
-            
+
             {submitStatus && (
-              <div className={`mb-4 p-3 rounded ${
-                submitStatus.success 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-red-100 text-red-800'
-              }`}>
+              <div className={`mb-4 p-3 rounded ${submitStatus.success
+                ? 'bg-green-100 text-green-800'
+                : 'bg-red-100 text-red-800'
+                }`}>
                 {submitStatus.message}
               </div>
             )}
-            
-            <button 
+
+            <button
               type="submit"
               className="bg-teal-600 text-white p-2 md:p-3 rounded hover:bg-teal-700 transition-colors flex justify-center items-center"
               disabled={isLoading}
@@ -166,7 +170,9 @@ const ContactForm = () => {
           {/* People Section */}
           <div className="w-full md:w-1/3">
             {[
-              { name: "", phone: "", email: "Contact@qurible.com" },
+              { name: "", 
+              //  phone: "", 
+                email: "Contact@qurible.com" },
             ].map((person, index) => (
               <div
                 key={index}
@@ -176,9 +182,9 @@ const ContactForm = () => {
                   <span className="block text-base md:text-lg font-semibold">
                     {person.name}
                   </span>
-                  <br />
-                  Phone: {person.phone}
-                  <br />
+                  {/* <br />
+                 Phone: {person.phone}
+                  <br /> */}
                   E-mail: {person.email}
                 </p>
               </div>
@@ -186,7 +192,7 @@ const ContactForm = () => {
           </div>
         </section>
 
-        <Newletter/>
+        <Newletter />
       </div>
       <Footer />
     </>
